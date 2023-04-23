@@ -45,7 +45,8 @@ public class AdminServiceImpl implements AdminService {
 		}
 
 		admin.setPassword(password);
-		return adminRepository1.save(admin);
+		adminRepository1.save(admin);
+		return admin;
 	}
 
 	@Override                                                                                // 3rd - done

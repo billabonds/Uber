@@ -1,16 +1,13 @@
 package com.driver.services.impl;
 
-import com.driver.model.TripBooking;
+import com.driver.model.*;
 import com.driver.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.driver.model.Customer;
-import com.driver.model.Driver;
 import com.driver.repository.CustomerRepository;
 import com.driver.repository.DriverRepository;
 import com.driver.repository.TripBookingRepository;
-import com.driver.model.TripStatus;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,6 +25,8 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	TripBookingRepository tripBookingRepository2;
 
+
+
 	@Override																			// 1st API - done
 	public void register(Customer customer) {
 		//Save the customer in database
@@ -37,6 +36,16 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override																			// 2nd API - done
 	public void deleteCustomer(Integer customerId) {
 		// Delete customer without using deleteById function
+
+		Customer customer = customerRepository2.findById(customerId).get();
+
+		List<TripBooking> tripBookingList = customer.getTripBookingList();
+
+		for(TripBooking tripBooking : tripBookingList){
+			if(tripBooking.getTripStatus() == TripStatus.CONFIRMED){
+				tripBooking.setTripStatus(TripStatus.CANCELED);
+			}
+		}
 
 		customerRepository2.deleteById(customerId);
 	}
@@ -64,11 +73,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer customer = customerRepository2.findById(customerId).get();
 
-		TripBooking tripBooking = new TripBooking();
-		tripBooking.setFromLocation(fromLocation);
-		tripBooking.setToLocation(toLocation);
-		tripBooking.setDistanceInKm(distanceInKm);
-		tripBooking.setTripStatus(TripStatus.CONFIRMED);
+		TripBooking tripBooking = new TripBooking();  //
+		tripBooking.setFromLocation(fromLocation);    //
+		tripBooking.setToLocation(toLocation);        //
+		tripBooking.setDistanceInKm(distanceInKm);   //
+		tripBooking.setTripStatus(TripStatus.CONFIRMED);  //
 		tripBooking.setBill(distanceInKm * driver.getCab().getPerKmRate());// calculate the bill on the basics of Distance travelled by cab
 
 		tripBooking.setDriver(driver);					   // driver booked for that trip
@@ -76,14 +85,14 @@ public class CustomerServiceImpl implements CustomerService {
 
 
 		// If cab is booked than cab , Driver and customer not available
-		customer.getTripBookingList().add(tripBooking);
-		driver.getTripBookingList().add(tripBooking);
+		customer.getTripBookingList().add(tripBooking);  //
+		driver.getTripBookingList().add(tripBooking);    //
 
 		// Driver cab not available
-		driver.getCab().setAvailable(false);
+		driver.getCab().setAvailable(false);    //
 
 		// save the history in all three Repository
-		tripBookingRepository2.save(tripBooking);
+//		tripBookingRepository2.save(tripBooking);
 		driverRepository2.save(driver);
 		customerRepository2.save(customer);
 
@@ -108,8 +117,8 @@ public class CustomerServiceImpl implements CustomerService {
 		tripBooking.getDriver().getCab().setAvailable(true);   // known cab is available
 
 		tripBookingRepository2.save(tripBooking);
-		customerRepository2.save(tripBooking.getCustomer());    // add customer history in customer repo
-		driverRepository2.save(tripBooking.getDriver());		// add driver history in driver repo
+//		customerRepository2.save(tripBooking.getCustomer());    // add customer history in customer repo
+//		driverRepository2.save(tripBooking.getDriver());		// add driver history in driver repo
 	}
 
 	@Override																			// 5th API - done
@@ -133,8 +142,14 @@ public class CustomerServiceImpl implements CustomerService {
 
 		tripBooking.setTripStatus(TripStatus.COMPLETED);
 		tripBooking.getDriver().getCab().setAvailable(true);
-		tripBookingRepository2.save(tripBooking);
 
+		int distance = tripBooking.getDistanceInKm();
+		Driver driver = tripBooking.getDriver();
+		Cab cab = driver.getCab();
+		int rate = cab.getPerKmRate();
+		tripBooking.setBill(distance * rate);
+
+		tripBookingRepository2.save(tripBooking);
 		driverRepository2.save(tripBooking.getDriver());
 		customerRepository2.save(tripBooking.getCustomer());
 	}
