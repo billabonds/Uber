@@ -53,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
 		driverList.sort(Comparator.comparingInt(Driver::getDriverId));
 
 		for(Driver st : driverList){
-			if(st.getCab().isAvailable() == true)
+			if(st.getCab().getAvailable() == true)
 				driver = st;
 		}
 
@@ -92,7 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override																			// 4th API - done
 	public void cancelTrip(Integer tripId) throws Exception {
-		//Cancel the trip having given trip Id and update TripBooking attributes accordingly
+		//Cancel the trip having given trip-Id and update TripBooking attributes accordingly
 
 		TripBooking tripBooking;
 

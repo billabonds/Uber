@@ -13,11 +13,14 @@ public class Cab {
 
     private boolean available;
 
-    @OneToOne
-    @JoinColumn                   // represent child class
-    Driver driver;
+    @OneToOne(mappedBy = "cab",cascade = CascadeType.ALL)
+    private Driver driver;
 
 
+
+    public Cab(int perKmRate){
+        this.perKmRate = perKmRate;
+    }
 
 
     public Cab() {
@@ -46,7 +49,7 @@ public class Cab {
         this.perKmRate = perKmRate;
     }
 
-    public boolean isAvailable() {
+    public boolean getAvailable() {
         return available;
     }
 

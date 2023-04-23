@@ -22,11 +22,11 @@ public class TripBooking {
 
     @ManyToOne
     @JoinColumn
-    Customer customer;
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn
-    Driver driver;
+    private Driver driver;
 
 
 
@@ -34,16 +34,13 @@ public class TripBooking {
     public TripBooking() {
     }
 
-    public TripBooking(int tripBookingId, String fromLocation, String toLocation, int distanceInKm,
-                       TripStatus tripStatus, int bill, Customer customer, Driver driver) {
-        this.tripBookingId = tripBookingId;
+    public TripBooking(String fromLocation, String toLocation, int distanceInKm,
+                       TripStatus tripStatus, int bill) {
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         this.distanceInKm = distanceInKm;
         this.tripStatus = tripStatus;
         this.bill = bill;
-        this.customer = customer;
-        this.driver = driver;
     }
 
     public int getTripBookingId() {
