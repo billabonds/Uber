@@ -24,10 +24,10 @@ public class Driver {
 
 
 
-    public Driver(String mobile,String password){
-        this.mobile = mobile;
-        this.password = password;
-    }
+//    public Driver(String mobile,String password){
+//        this.mobile = mobile;
+//        this.password = password;
+//    }
 
     public Driver() {
     }

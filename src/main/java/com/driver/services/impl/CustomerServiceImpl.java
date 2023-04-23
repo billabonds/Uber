@@ -73,11 +73,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer customer = customerRepository2.findById(customerId).get();
 
-		TripBooking tripBooking = new TripBooking();  //
-		tripBooking.setFromLocation(fromLocation);    //
-		tripBooking.setToLocation(toLocation);        //
-		tripBooking.setDistanceInKm(distanceInKm);   //
-		tripBooking.setTripStatus(TripStatus.CONFIRMED);  //
+		TripBooking tripBooking = new TripBooking();
+		tripBooking.setFromLocation(fromLocation);
+		tripBooking.setToLocation(toLocation);
+		tripBooking.setDistanceInKm(distanceInKm);
+		tripBooking.setTripStatus(TripStatus.CONFIRMED);
 		tripBooking.setBill(distanceInKm * driver.getCab().getPerKmRate());// calculate the bill on the basics of Distance travelled by cab
 
 		tripBooking.setDriver(driver);					   // driver booked for that trip
@@ -92,7 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
 		driver.getCab().setAvailable(false);    //
 
 		// save the history in all three Repository
-//		tripBookingRepository2.save(tripBooking);
+		tripBookingRepository2.save(tripBooking);
 		driverRepository2.save(driver);
 		customerRepository2.save(customer);
 
@@ -117,8 +117,8 @@ public class CustomerServiceImpl implements CustomerService {
 		tripBooking.getDriver().getCab().setAvailable(true);   // known cab is available
 
 		tripBookingRepository2.save(tripBooking);
-//		customerRepository2.save(tripBooking.getCustomer());    // add customer history in customer repo
-//		driverRepository2.save(tripBooking.getDriver());		// add driver history in driver repo
+		customerRepository2.save(tripBooking.getCustomer());    // add customer history in customer repo
+		driverRepository2.save(tripBooking.getDriver());		// add driver history in driver repo
 	}
 
 	@Override																			// 5th API - done

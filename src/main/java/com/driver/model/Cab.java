@@ -18,11 +18,6 @@ public class Cab {
 
 
 
-    public Cab(int perKmRate){
-        this.perKmRate = perKmRate;
-    }
-
-
     public Cab() {
     }
 
