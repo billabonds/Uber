@@ -18,6 +18,6 @@ public interface CustomerService {
 	
 	public void cancelTrip(Integer tripId) ;
 
-	public void completeTrip(Integer tripId) throws Exception;
+	public void completeTrip(Integer tripId) ;
 	
 }

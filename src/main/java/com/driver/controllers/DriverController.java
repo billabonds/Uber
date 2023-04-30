@@ -28,7 +28,7 @@ public class DriverController {
 	}
 
 	@PutMapping("/status")																		// 3rd API
-	public void updateStatus(@RequestParam Integer driverId) throws Exception {
+	public void updateStatus(@RequestParam Integer driverId)  {
 
 		driverService.updateStatus(driverId);
 	}

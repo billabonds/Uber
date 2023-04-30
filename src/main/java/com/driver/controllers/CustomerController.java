@@ -16,6 +16,9 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 
+
+	// ---------------------------------------------------------------------------------------------------
+
 	@PostMapping("/register")																// 1st API
 	public ResponseEntity<Void> registerCustomer(@RequestBody Customer customer){
 
@@ -30,7 +33,8 @@ public class CustomerController {
 	}
 
 	@PostMapping("/bookTrip")															    // 3rd API
-	public ResponseEntity<Integer> bookTrip(@RequestParam Integer customerId, @RequestParam String fromLocation, @RequestParam String toLocation, @RequestParam Integer distanceInKm) throws Exception {
+	public ResponseEntity<Integer> bookTrip(@RequestParam Integer customerId, @RequestParam String fromLocation,
+											@RequestParam String toLocation, @RequestParam Integer distanceInKm) throws Exception {
 
 		TripBooking bookedTrip = customerService.bookTrip(customerId,fromLocation,toLocation,distanceInKm);
 
@@ -38,7 +42,7 @@ public class CustomerController {
 	}
 
 	@DeleteMapping("/complete")																// 4th API
-	public void completeTrip(@RequestParam Integer tripId) throws Exception {
+	public void completeTrip(@RequestParam Integer tripId) {
 
 		customerService.completeTrip(tripId);
 	}

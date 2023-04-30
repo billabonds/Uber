@@ -123,24 +123,25 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override																			// 5th API - done
-	public void completeTrip(Integer tripId) throws Exception {
+	public void completeTrip(Integer tripId) {
 		//Complete the trip having given trip-Id and update TripBooking attributes accordingly
 
-		TripBooking tripBooking;
-
-		try{
-			tripBooking = tripBookingRepository2.findById(tripId).get();
-		}
-		catch (Exception e){
-			throw new Exception("TripId Does not exist in the database");
-		}
+//		TripBooking tripBooking;
+//
+//		try{
+//			tripBooking = tripBookingRepository2.findById(tripId).get();
+//		}
+//		catch (Exception e){
+//			throw new Exception("TripId Does not exist in the database");
+//		}
 
 		// Check whether trip is already completed or cancelled
 
-		if(tripBooking.getStatus().compareTo(TripStatus.CANCELED) == 0 ||
-									tripBooking.getStatus().compareTo(TripStatus.COMPLETED) == 0)
-			return ;
+//		if(tripBooking.getStatus().compareTo(TripStatus.CANCELED) == 0 ||
+//									tripBooking.getStatus().compareTo(TripStatus.COMPLETED) == 0)
+//			return ;
 
+		TripBooking tripBooking = tripBookingRepository2.findById(tripId).get();
 		tripBooking.setStatus(TripStatus.COMPLETED);
 		tripBooking.getDriver().getCab().setAvailable(true);
 
@@ -151,7 +152,7 @@ public class CustomerServiceImpl implements CustomerService {
 		tripBooking.setBill(distance * rate);
 
 		tripBookingRepository2.save(tripBooking);
-		driverRepository2.save(tripBooking.getDriver());
-		customerRepository2.save(tripBooking.getCustomer());
+//		driverRepository2.save(tripBooking.getDriver());
+//		customerRepository2.save(tripBooking.getCustomer());
 	}
 }
