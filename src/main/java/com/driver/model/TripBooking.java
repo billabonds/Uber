@@ -79,7 +79,7 @@ public class TripBooking {
         return status;
     }
 
-    public void setTripStatus(TripStatus tripStatus) {
+    public void setStatus(TripStatus status) {
         this.status = status;
     }
 
