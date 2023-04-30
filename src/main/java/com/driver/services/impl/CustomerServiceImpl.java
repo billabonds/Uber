@@ -26,6 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
 	TripBookingRepository tripBookingRepository2;
 
 
+	// ------------------------------------------------------------------------------------------------
 
 	@Override																			// 1st API - done
 	public void register(Customer customer) {
@@ -39,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer customer = customerRepository2.findById(customerId).get();
 
-		List<TripBooking> tripBookingList = customer.getTripBookingList();
+//		List<TripBooking> tripBookingList = customer.getTripBookingList();
 
 //		for(TripBooking tripBooking : tripBookingList){
 //			if(tripBooking.getStatus() == TripStatus.CONFIRMED){
@@ -59,11 +60,14 @@ public class CustomerServiceImpl implements CustomerService {
 		List<Driver> driverList = driverRepository2.findAll();
 
 		// sort the driver on the basics of ID's
-		driverList.sort(Comparator.comparingInt(Driver::getDriverId));
+//		driverList.sort(Comparator.comparingInt(Driver::getDriverId));
 
 		for(Driver st : driverList){
-			if(st.getCab().getAvailable() == true)
-				driver = st;
+			if(st.getCab().getAvailable() == true) {
+
+				if(driver == null || driver.getDriverId() > st.getDriverId())
+					driver = st;
+			}
 		}
 
 		// if no driver is available
@@ -78,21 +82,21 @@ public class CustomerServiceImpl implements CustomerService {
 		tripBooking.setToLocation(toLocation);
 		tripBooking.setDistanceInKm(distanceInKm);
 		tripBooking.setStatus(TripStatus.CONFIRMED);
-		tripBooking.setBill(distanceInKm * driver.getCab().getPerKmRate());// calculate the bill on the basics of Distance travelled by cab
+//		tripBooking.setBill(distanceInKm * driver.getCab().getPerKmRate());// calculate the bill on the basics of Distance travelled by cab
 
 		tripBooking.setDriver(driver);					   // driver booked for that trip
 		tripBooking.setCustomer(customer);                 // customer added for that trip
 
 
 		// If cab is booked than cab , Driver and customer not available
-		customer.getTripBookingList().add(tripBooking);  //
-		driver.getTripBookingList().add(tripBooking);    //
+		customer.getTripBookingList().add(tripBooking);
+		driver.getTripBookingList().add(tripBooking);
 
 		// Driver cab not available
-		driver.getCab().setAvailable(false);    //
+		driver.getCab().setAvailable(false);
 
 		// save the history in all three Repository
-		tripBookingRepository2.save(tripBooking);
+//		tripBookingRepository2.save(tripBooking);
 		driverRepository2.save(driver);
 		customerRepository2.save(customer);
 

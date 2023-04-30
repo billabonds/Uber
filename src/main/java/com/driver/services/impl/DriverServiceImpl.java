@@ -22,6 +22,7 @@ public class DriverServiceImpl implements DriverService {
 	@Autowired
 	CabRepository cabRepository3;
 
+	// -------------------------------------------------------------------------------------
 
 
 	@Override																	// 1st API - done
@@ -37,7 +38,7 @@ public class DriverServiceImpl implements DriverService {
 		cab.setDriver(driver);
 		cab.setAvailable(true);
 
-		driver.setCab(cab);
+//		driver.setCab(cab);
 		driverRepository3.save(driver);
 	}
 
@@ -46,16 +47,16 @@ public class DriverServiceImpl implements DriverService {
 		// Delete driver without using deleteById function
 
 		Driver driver = driverRepository3.findById(driverId).get();
-		Cab cab = driver.getCab();
-		cabRepository3.delete(cab);
+//		Cab cab = driver.getCab();
+//		cabRepository3.delete(cab);
 
-		List<TripBooking> tripBookingList = driver.getTripBookingList();
-
-		for(TripBooking tripBooking : tripBookingList){
-			if(tripBooking.getStatus() == TripStatus.CONFIRMED){
-				tripBooking.setStatus(TripStatus.CANCELED);
-			}
-		}
+//		List<TripBooking> tripBookingList = driver.getTripBookingList();
+//
+//		for(TripBooking tripBooking : tripBookingList){
+//			if(tripBooking.getStatus() == TripStatus.CONFIRMED){
+//				tripBooking.setStatus(TripStatus.CANCELED);
+//			}
+//		}
 
 		driverRepository3.deleteById(driverId);
 	}
