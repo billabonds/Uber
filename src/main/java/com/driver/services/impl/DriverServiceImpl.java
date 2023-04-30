@@ -22,6 +22,8 @@ public class DriverServiceImpl implements DriverService {
 	@Autowired
 	CabRepository cabRepository3;
 
+
+
 	@Override																	// 1st API - done
 	public void register(String mobile, String password){
 		//Save a driver in the database having given details and a cab with ratePerKm as 10 and availability as True by default.
@@ -51,7 +53,7 @@ public class DriverServiceImpl implements DriverService {
 
 		for(TripBooking tripBooking : tripBookingList){
 			if(tripBooking.getStatus() == TripStatus.CONFIRMED){
-				tripBooking.setTripStatus(TripStatus.CANCELED);
+				tripBooking.setStatus(TripStatus.CANCELED);
 			}
 		}
 

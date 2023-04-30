@@ -43,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		for(TripBooking tripBooking : tripBookingList){
 			if(tripBooking.getStatus() == TripStatus.CONFIRMED){
-				tripBooking.setTripStatus(TripStatus.CANCELED);
+				tripBooking.setStatus(TripStatus.CANCELED);
 			}
 		}
 
@@ -77,7 +77,7 @@ public class CustomerServiceImpl implements CustomerService {
 		tripBooking.setFromLocation(fromLocation);
 		tripBooking.setToLocation(toLocation);
 		tripBooking.setDistanceInKm(distanceInKm);
-		tripBooking.setTripStatus(TripStatus.CONFIRMED);
+		tripBooking.setStatus(TripStatus.CONFIRMED);
 		tripBooking.setBill(distanceInKm * driver.getCab().getPerKmRate());// calculate the bill on the basics of Distance travelled by cab
 
 		tripBooking.setDriver(driver);					   // driver booked for that trip
@@ -112,7 +112,7 @@ public class CustomerServiceImpl implements CustomerService {
 			throw new Exception("TripId Does not exist in the database");
 		}
 
-		tripBooking.setTripStatus(TripStatus.CANCELED);
+		tripBooking.setStatus(TripStatus.CANCELED);
 		tripBooking.setBill(0);                                // Bill become o because trip is cancelled
 		tripBooking.getDriver().getCab().setAvailable(true);   // known cab is available
 
@@ -140,7 +140,7 @@ public class CustomerServiceImpl implements CustomerService {
 									tripBooking.getStatus().compareTo(TripStatus.COMPLETED) == 0)
 			return ;
 
-		tripBooking.setTripStatus(TripStatus.COMPLETED);
+		tripBooking.setStatus(TripStatus.COMPLETED);
 		tripBooking.getDriver().getCab().setAvailable(true);
 
 		int distance = tripBooking.getDistanceInKm();
