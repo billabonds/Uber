@@ -9,6 +9,7 @@ public class Cab {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
     private int perKmRate;
 
     private boolean available;
