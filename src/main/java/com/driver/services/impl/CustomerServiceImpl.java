@@ -59,9 +59,6 @@ public class CustomerServiceImpl implements CustomerService {
 		Driver driver = null;
 		List<Driver> driverList = driverRepository2.findAll();
 
-		// sort the driver on the basics of ID's
-//		driverList.sort(Comparator.comparingInt(Driver::getDriverId));
-
 		for(Driver st : driverList){
 			if(st.getCab().getAvailable() == true) {
 
@@ -82,7 +79,6 @@ public class CustomerServiceImpl implements CustomerService {
 		tripBooking.setToLocation(toLocation);
 		tripBooking.setDistanceInKm(distanceInKm);
 		tripBooking.setStatus(TripStatus.CONFIRMED);
-//		tripBooking.setBill(distanceInKm * driver.getCab().getPerKmRate());// calculate the bill on the basics of Distance travelled by cab
 
 		tripBooking.setDriver(driver);					   // driver booked for that trip
 		tripBooking.setCustomer(customer);                 // customer added for that trip
@@ -95,8 +91,7 @@ public class CustomerServiceImpl implements CustomerService {
 		// Driver cab not available
 		driver.getCab().setAvailable(false);
 
-		// save the history in all three Repository
-//		tripBookingRepository2.save(tripBooking);
+		// save the history in Repository
 		driverRepository2.save(driver);
 		customerRepository2.save(customer);
 
