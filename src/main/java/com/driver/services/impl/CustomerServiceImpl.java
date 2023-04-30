@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
 		List<TripBooking> tripBookingList = customer.getTripBookingList();
 
 		for(TripBooking tripBooking : tripBookingList){
-			if(tripBooking.getTripStatus() == TripStatus.CONFIRMED){
+			if(tripBooking.getStatus() == TripStatus.CONFIRMED){
 				tripBooking.setTripStatus(TripStatus.CANCELED);
 			}
 		}
@@ -136,8 +136,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 		// Check whether trip is already completed or cancelled
 
-		if(tripBooking.getTripStatus().compareTo(TripStatus.CANCELED) == 0 ||
-									tripBooking.getTripStatus().compareTo(TripStatus.COMPLETED) == 0)
+		if(tripBooking.getStatus().compareTo(TripStatus.CANCELED) == 0 ||
+									tripBooking.getStatus().compareTo(TripStatus.COMPLETED) == 0)
 			return ;
 
 		tripBooking.setTripStatus(TripStatus.COMPLETED);

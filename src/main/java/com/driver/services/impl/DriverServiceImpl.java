@@ -50,7 +50,7 @@ public class DriverServiceImpl implements DriverService {
 		List<TripBooking> tripBookingList = driver.getTripBookingList();
 
 		for(TripBooking tripBooking : tripBookingList){
-			if(tripBooking.getTripStatus() == TripStatus.CONFIRMED){
+			if(tripBooking.getStatus() == TripStatus.CONFIRMED){
 				tripBooking.setTripStatus(TripStatus.CANCELED);
 			}
 		}
