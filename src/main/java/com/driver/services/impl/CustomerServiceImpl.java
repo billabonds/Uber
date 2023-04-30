@@ -41,11 +41,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 		List<TripBooking> tripBookingList = customer.getTripBookingList();
 
-		for(TripBooking tripBooking : tripBookingList){
-			if(tripBooking.getStatus() == TripStatus.CONFIRMED){
-				tripBooking.setStatus(TripStatus.CANCELED);
-			}
-		}
+//		for(TripBooking tripBooking : tripBookingList){
+//			if(tripBooking.getStatus() == TripStatus.CONFIRMED){
+//				tripBooking.setStatus(TripStatus.CANCELED);
+//			}
+//		}
 
 		customerRepository2.deleteById(customerId);
 	}
@@ -100,25 +100,26 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override																			// 4th API - done
-	public void cancelTrip(Integer tripId) throws Exception {
+	public void cancelTrip(Integer tripId) {
 		//Cancel the trip having given trip-Id and update TripBooking attributes accordingly
 
-		TripBooking tripBooking;
+//		TripBooking tripBooking;
+//
+//		try{
+//			tripBooking = tripBookingRepository2.findById(tripId).get();
+//		}
+//		catch (Exception e){
+//			throw new Exception("TripId Does not exist in the database");
+//		}
 
-		try{
-			tripBooking = tripBookingRepository2.findById(tripId).get();
-		}
-		catch (Exception e){
-			throw new Exception("TripId Does not exist in the database");
-		}
-
+		TripBooking tripBooking = tripBookingRepository2.findById(tripId).get();
 		tripBooking.setStatus(TripStatus.CANCELED);
 		tripBooking.setBill(0);                                // Bill become o because trip is cancelled
 		tripBooking.getDriver().getCab().setAvailable(true);   // known cab is available
 
 		tripBookingRepository2.save(tripBooking);
-		customerRepository2.save(tripBooking.getCustomer());    // add customer history in customer repo
-		driverRepository2.save(tripBooking.getDriver());		// add driver history in driver repo
+//		customerRepository2.save(tripBooking.getCustomer());    // add customer history in customer repo
+//		driverRepository2.save(tripBooking.getDriver());		// add driver history in driver repo
 	}
 
 	@Override																			// 5th API - done

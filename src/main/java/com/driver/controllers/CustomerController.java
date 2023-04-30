@@ -44,7 +44,7 @@ public class CustomerController {
 	}
 
 	@DeleteMapping("/cancelTrip")															// 5th API
-	public void cancelTrip(@RequestParam Integer tripId) throws Exception {
+	public void cancelTrip(@RequestParam Integer tripId) {
 
 		customerService.cancelTrip(tripId);
 	}

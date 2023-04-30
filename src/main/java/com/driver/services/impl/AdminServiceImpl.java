@@ -25,6 +25,10 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	CustomerRepository customerRepository1;
 
+
+
+	// ------------------------------------------------------------------------------------------------
+
 	@Override                                                                                // 1st API - done
 	public void adminRegister(Admin admin) {
 		//Save the admin in the database
@@ -33,34 +37,36 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override                                                                                // 2nd API - done
-	public Admin updatePassword(Integer adminId, String password) throws Exception {
+	public Admin updatePassword(Integer adminId, String password) {
 		//Update the password of admin with given id
 
-		Admin admin;
+//		Admin admin;
+//
+//		try {
+//			admin = adminRepository1.findById(adminId).get();
+//		} catch (Exception e) {
+//			throw new Exception("Admin does not Exist in the database ");
+//		}
 
-		try {
-			admin = adminRepository1.findById(adminId).get();
-		} catch (Exception e) {
-			throw new Exception("Admin does not Exist in the database ");
-		}
-
+		Admin admin = adminRepository1.findById(adminId).get();
 		admin.setPassword(password);
 		adminRepository1.save(admin);
 		return admin;
 	}
 
 	@Override                                                                                // 3rd - done
-	public void deleteAdmin(int adminId) throws Exception {
+	public void deleteAdmin(int adminId)  {
 		// Delete admin without using deleteById function
 
-		Admin admin;
+//		Admin admin;
+//
+//		try {
+//			admin = adminRepository1.findById(adminId).get();
+//		} catch (Exception e) {
+//			throw new Exception("Admin does not Exist in the database ");
+//		}
 
-		try {
-			admin = adminRepository1.findById(adminId).get();
-		} catch (Exception e) {
-			throw new Exception("Admin does not Exist in the database ");
-		}
-
+		Admin admin = adminRepository1.findById(adminId).get();
 		adminRepository1.deleteById(adminId);
 	}
 
@@ -68,14 +74,16 @@ public class AdminServiceImpl implements AdminService {
 	public List<Driver> getListOfDrivers() {
 		//Find the list of all drivers
 
-		return driverRepository1.findAll();
+		List<Driver> list = driverRepository1.findAll();
+		return list;
 	}
 
 	@Override                                                                                // 5th API - done
 	public List<Customer> getListOfCustomers() {
 		//Find the list of all customers
 
-		return customerRepository1.findAll();
+		List<Customer> list = customerRepository1.findAll();
+		return list;
 	}
 }
 
